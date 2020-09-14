@@ -128,7 +128,7 @@ class Metric extends MetricInterface
         $file = __DIR__ . '/terms_list/' . $this->sensitveTermsFile;
         $this->sensitiveTerms = array();
         try {
-            if (($handle = fopen($file, "r")) !== FALSE) {
+            if (file_exists($file) && ($handle = fopen($file, "r")) !== FALSE) {
                 while (($rowData = fgetcsv($handle, 1000, ",")) !== FALSE) {
                     foreach ($rowData as $data) {
                         if (!empty(trim($data))) {
