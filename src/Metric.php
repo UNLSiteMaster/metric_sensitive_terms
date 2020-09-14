@@ -127,15 +127,19 @@ class Metric extends MetricInterface
     private function setTermsFromCSV() {
         $file = __DIR__ . '/terms_list/' . $this->sensitveTermsFile;
         $this->sensitiveTerms = array();
-        if (($handle = fopen($file, "r")) !== FALSE) {
-            while (($rowData = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                foreach($rowData as $data) {
-                    if (!empty(trim($data))) {
-                        $this->sensitiveTerms[] = trim($data);
+        try {
+            if (($handle = fopen($file, "r")) !== FALSE) {
+                while (($rowData = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    foreach ($rowData as $data) {
+                        if (!empty(trim($data))) {
+                            $this->sensitiveTerms[] = trim($data);
+                        }
                     }
                 }
+                fclose($handle);
             }
-            fclose($handle);
+        } catch (Exception $e) {
+            // Do Nothing
         }
     }
 }
