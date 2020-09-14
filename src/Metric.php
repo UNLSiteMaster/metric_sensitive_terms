@@ -130,7 +130,9 @@ class Metric extends MetricInterface
         if (($handle = fopen($file, "r")) !== FALSE) {
             while (($rowData = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 foreach($rowData as $data) {
-                    $this->sensitiveTerms[] = $data;
+                    if (!empty(trim($data))) {
+                        $this->sensitiveTerms[] = trim($data);
+                    }
                 }
             }
             fclose($handle);
