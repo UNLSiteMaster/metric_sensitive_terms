@@ -12,7 +12,7 @@ use SiteMaster\Core\RuntimeException;
 class Metric extends MetricInterface
 {
     private $sensitiveTerms = array();
-    private $sensitveTermsFile = 'unl.csv';
+    private $sensitveTermsFile = 'default.csv';
 
     /**
      * @param string $plugin_name
