@@ -100,7 +100,7 @@ class Metric extends MetricInterface
      * @param \DomXpath $xpath
      * @return array - an array of the sensitive term textual references. Each is an associative array with 'context', 'value_found' values
      */
-    private function getSensitiveTermsOccurrences(\DomXpath $xpath)
+    public function getSensitiveTermsOccurrences(\DomXpath $xpath)
     {
         $errors = array();
         if (count($this->sensitiveTerms) === 0) {
