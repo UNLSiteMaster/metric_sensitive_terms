@@ -18,8 +18,3 @@ Do not use any other SiteMaster configuration variables as they are not intended
 ## BSD License Agreement
 
 The software accompanying this license is available to you under the BSD 3-Clause License. See LICENSE for details.
-
-
-
-
-
