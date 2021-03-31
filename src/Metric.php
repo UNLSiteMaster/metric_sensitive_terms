@@ -23,15 +23,15 @@ class Metric extends MetricInterface
     public function __construct($plugin_name, array $options = array())
     {
         if (!empty($options['terms_list_file'])) {
-            $this->$sensitiveTermsFile = $options['terms_list_file'];
+            $this->sensitiveTermsFile = $options['terms_list_file'];
         }
 
         if (!empty($options['terms_help_document_name'])) {
-          $this->$sensitiveTermsHelpDocumentName = $options['terms_help_document_name'];
+          $this->sensitiveTermsHelpDocumentName = $options['terms_help_document_name'];
         }
 
         if (!empty($options['terms_help_document_url'])) {
-          $this->$sensitiveTermsHelpDocumentURL = $options['terms_help_document_url'];
+          $this->sensitiveTermsHelpDocumentURL = $options['terms_help_document_url'];
         }
 
         $this->setTermsFromCSV();
@@ -139,7 +139,7 @@ class Metric extends MetricInterface
     }
 
     private function setTermsFromCSV() {
-        $file = __DIR__ . '/terms_list/' . $this->$sensitiveTermsFile;
+        $file = __DIR__ . '/terms_list/' . $this->sensitiveTermsFile;
         $this->sensitiveTerms = array();
         try {
             if (file_exists($file) && ($handle = fopen($file, "r")) !== FALSE) {
