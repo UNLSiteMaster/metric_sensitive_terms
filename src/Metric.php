@@ -86,7 +86,7 @@ class Metric extends MetricInterface
      */
     public function scan($uri, \DOMXPath $xpath, $depth, Page $page, Metrics $context)
     {
-        $helpText = 'Use an approved source to find acceptable alternatives for this terms.';
+        $helpText = 'Use an approved source to find an acceptable alternative for this term.';
         if (!empty($this->sensitiveTermsHelpDocumentName) && !empty($this->sensitiveTermsHelpDocumentURL)) {
           $helpText = 'See ['. $this->sensitiveTermsHelpDocumentName .']('. $this->sensitiveTermsHelpDocumentURL .') for help on this topic.';
         }
