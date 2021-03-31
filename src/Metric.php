@@ -12,7 +12,9 @@ use SiteMaster\Core\RuntimeException;
 class Metric extends MetricInterface
 {
     private $sensitiveTerms = array();
-    private $sensitveTermsFile = 'default.csv';
+    private $sensitiveTermsFile = 'default.csv';
+    private $sensitiveTermsHelpDocumentName = '';
+    private $sensitiveTermsHelpDocumentURL = '';
 
     /**
      * @param string $plugin_name
@@ -21,7 +23,15 @@ class Metric extends MetricInterface
     public function __construct($plugin_name, array $options = array())
     {
         if (!empty($options['terms_list_file'])) {
-            $this->sensitveTermsFile = $options['terms_list_file'];
+            $this->$sensitiveTermsFile = $options['terms_list_file'];
+        }
+
+        if (!empty($options['terms_help_document_name'])) {
+          $this->$sensitiveTermsHelpDocumentName = $options['terms_help_document_name'];
+        }
+
+        if (!empty($options['terms_help_document_url'])) {
+          $this->$sensitiveTermsHelpDocumentURL = $options['terms_help_document_url'];
         }
 
         $this->setTermsFromCSV();
@@ -76,13 +86,17 @@ class Metric extends MetricInterface
      */
     public function scan($uri, \DOMXPath $xpath, $depth, Page $page, Metrics $context)
     {
+        $helpText = 'Use an approved source to find acceptable alternatives for these terms.';
+        if (!empty($this->sensitiveTermsHelpDocumentName) && !empty($this->sensitiveTermsHelpDocumentURL)) {
+          $helpText = 'See ['. $this->sensitiveTermsHelpDocumentName .']('. $this->sensitiveTermsHelpDocumentURL .') for help on this topic.';
+        }
         $occurrences = $this->getSensitiveTermsOccurrences($xpath);
         $mark = $this->getMark(
             $this->getMachineName(),
             'A sensitive term was found.',
             0,
             'Verify if word is appropriate for its context, and replace if not.',
-            'See [the WDN style guide documentation](https://wdn.unl.edu/unl-web-framework-5-standards-guide) for help on this topic.',
+            $helpText,
             true
         );
         foreach ($occurrences as $occurrence) {
@@ -125,7 +139,7 @@ class Metric extends MetricInterface
     }
 
     private function setTermsFromCSV() {
-        $file = __DIR__ . '/terms_list/' . $this->sensitveTermsFile;
+        $file = __DIR__ . '/terms_list/' . $this->$sensitiveTermsFile;
         $this->sensitiveTerms = array();
         try {
             if (file_exists($file) && ($handle = fopen($file, "r")) !== FALSE) {

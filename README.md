@@ -12,7 +12,9 @@ Do not use any other SiteMaster configuration variables as they are not intended
 ### Configuration Example
 ```
 'metric_sensitive_terms' => array(
-  'terms_list_file' => 'custom.csv'
+  'terms_list_file' => 'custom.csv',
+  'terms_help_document_name' => 'Name of terms help document or style guide',
+  'terms_help_document_url' => 'https://url-to-terms-help-document'
 )
 ```
 ## BSD License Agreement
