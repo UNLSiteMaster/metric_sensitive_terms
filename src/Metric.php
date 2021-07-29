@@ -124,7 +124,8 @@ class Metric extends MetricInterface
         $nodes = $xpath->query("//*//text()");
         foreach ($nodes as $node) {
             foreach ($this->sensitiveTerms as $sensitiveTerm) {
-                $termFoundCount = substr_count(strtolower($node->textContent), strtolower($sensitiveTerm));
+                preg_match_all('/\b' . strtolower($sensitiveTerm) . '\b/', strtolower($node->textContent), $matches);
+                $termFoundCount = count($matches[0]);
                 if ($termFoundCount > 0) {
                     $errors[] = array(
                         'value_found' => $sensitiveTerm,
